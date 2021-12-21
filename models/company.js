@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Company.associate = models => {
+        Company.belongsTo(models.Admin);
+        Company.belongsToMany(models.Employees, {through: 'EmployeeCompany'});
+      }
     }
   };
   Company.init({

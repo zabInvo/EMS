@@ -9,6 +9,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Employees.associate = (models) => {
+        Employees.belongsToMany(models.Company, { through: "EmployeeCompany" });
+        Employees.hasOne(models.Salary);
+        Employees.hasMany(models.Attendance);
+      };
     }
   }
   Employees.init(
