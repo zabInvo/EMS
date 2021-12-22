@@ -9,11 +9,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Employees.associate = (models) => {
-        Employees.belongsToMany(models.Company, { through: "EmployeeCompany" });
-        Employees.hasOne(models.Salary);
-        Employees.hasMany(models.Attendance);
-      };
+      Employees.belongsToMany(models.Company, { through: "EmployeeCompany", foreignKey: 'EmployeeId' });
+      Employees.hasOne(models.Salary);
+      Employees.hasMany(models.Attendance);
     }
   }
   Employees.init(
@@ -21,9 +19,6 @@ module.exports = (sequelize, DataTypes) => {
       name: DataTypes.STRING,
       password: {
         type: DataTypes.STRING,
-        validate: {
-          len: [5, 30],
-        },
       },
       email: {
         type: DataTypes.STRING,
