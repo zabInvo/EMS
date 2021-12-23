@@ -110,7 +110,7 @@ module.exports.updatePassword = async (req, res) => {
         const saltRounds = 10;
         const salt = await bcrypt.genSaltSync(saltRounds);
         const hash = await bcrypt.hashSync(req.body.newPassword, salt);
-        const checkAdmin = await AdminModel.update(
+        const changePassword = await AdminModel.update(
           {
             password: hash,
           },
@@ -136,27 +136,3 @@ module.exports.updatePassword = async (req, res) => {
     });
   }
 };
-
-// GET ALL ADMINS
-module.exports.destroyAdmin = async (req, res) => {
-    try {
-      const checkAdmin = await AdminModel.findOne({
-        where: {
-          id: req.user,
-        },
-      });
-      if (checkAdmin) {
-        const admin = await AdminModel.findAll({ attributes: ["name", "email"] });
-        res.status(200).json({ data: admin });
-      } else {
-        res.status(403).json({ message: "You are authorized for this action" });
-      }
-    } catch (error) {
-      res.status(500).json({
-        error:
-          error && error.errors[0] && error.errors[0].message
-            ? error.errors[0].message
-            : "Internal Server Error",
-      });
-    }
-  };

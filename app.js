@@ -1,24 +1,27 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const bodyParser = require('body-parser');
+const bodyParser = require("body-parser");
 
 const port = 3000;
 app.use(bodyParser.json());
 
-app.get("/",(req,res)=>{
-    res.send("You land on a wrong planet, no one lives here.");
+app.get("/", (req, res) => {
+  res.send("You land on a wrong planet, no one lives here.");
 });
 
 // ROUTES FOR ADMIN
-app.use('/api/admin', require('./routes/admin'));
+app.use("/api/admin", require("./routes/admin"));
 // ROUTES FOR COMPANY
-app.use('/api/company', require('./routes/company'));
+app.use("/api/company", require("./routes/company"));
 // ROUTES FOR EMPLOYEE
-app.use('/api/employee', require('./routes/employee'));
+app.use("/api/employee", require("./routes/employee"));
+// ROUTES FOR SALARY
+app.use("/api/salary", require("./routes/salary"));
+// ROUTE FOR ATTENDANCE
+app.use("/api/attendance", require("./routes/attendance"));
 
-
-app.listen(port, ()=> {
-    console.log(`App is listening at http://localhost:${port}`);
+app.listen(port, () => {
+  console.log(`App is listening at http://localhost:${port}`);
 });
 
 module.exports = app;
