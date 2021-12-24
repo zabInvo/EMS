@@ -1,9 +1,37 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+const multer = require("multer");
+const path = require("path");
 
 const port = 3000;
 app.use(bodyParser.json());
+
+// CONFIG FOR FILE UPLOADING
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname, "/uploads/"));
+  },
+  filename: function (req, file, cb) {
+    cb(null, new Date().toISOString() + file.originalname);
+  },
+});
+const checkFileType = (req, file, cb) => {
+  if (file.mimetype == "image/jpeg" || file.mimetype == "image/png") {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+module.exports.upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 * 5,
+  },
+  fileFilter : checkFileType
+});
+
+app.use('/uploads', express.static('uploads'));
 
 app.get("/", (req, res) => {
   res.send("You land on a wrong planet, no one lives here.");

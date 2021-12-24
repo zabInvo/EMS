@@ -174,3 +174,21 @@ module.exports.assignComapny = async (req, res) => {
     });
   }
 };
+
+// DELETE EMPLOYEE ROUTE
+module.exports.uploadImage = async (req, res) => {
+  try {
+    if (req.file) {
+      console.log(req.file);
+      res.status(200).json({ message: "Image Uploaded Successfully" });
+    } else {
+      res.status(500).json({
+        error: "Error while uploading Image",
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      error: error,
+    });
+  }
+};
