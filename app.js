@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const multer = require("multer");
-const path = require("path");
 
 const port = 3000;
 app.use(bodyParser.json());
@@ -10,7 +9,7 @@ app.use(bodyParser.json());
 // CONFIG FOR FILE UPLOADING
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, "/uploads/"));
+    cb(null, "uploads/");
   },
   filename: function (req, file, cb) {
     cb(null, new Date().toISOString() + file.originalname);

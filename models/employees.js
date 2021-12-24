@@ -28,6 +28,9 @@ module.exports = (sequelize, DataTypes) => {
           isEmail: true,
         },
       },
+      imagePath: {
+        type: DataTypes.STRING,
+      },
     },
     {
       sequelize,

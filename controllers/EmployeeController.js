@@ -36,7 +36,7 @@ module.exports.createEmployee = async (req, res) => {
 // EMPLOYEE LOGIN ROUTE
 module.exports.login = async (req, res) => {
   try {
-    const user = await EmployeeModel.findAll({
+    const user = await EmployeeModel.findOne({
       where: {
         email: req.body.email,
       },
@@ -44,17 +44,20 @@ module.exports.login = async (req, res) => {
     if (user) {
       const comparePassword = await bcrypt.compareSync(
         req.body.password,
-        user[0].password
+        user.password
       );
       if (comparePassword == true) {
         await jwt.sign(
-          { id: user[0].id },
+          { id: user.id },
           process.env.private_key,
           { expiresIn: "12h" },
           function (err, token) {
+            let { password, createdAt, updatedAt, ...loggedInUser } =
+              user.toJSON();
+            loggedInUser["token"] = token;
             res
               .status(200)
-              .json({ token: token, message: "User Login Sucessfully" });
+              .json({ user: loggedInUser, message: "User Login Sucessfully" });
           }
         );
       } else {
@@ -178,8 +181,10 @@ module.exports.assignComapny = async (req, res) => {
 // DELETE EMPLOYEE ROUTE
 module.exports.uploadImage = async (req, res) => {
   try {
+    const user = await EmployeeModel.findByPk(req.user);
     if (req.file) {
       console.log(req.file);
+      const addImage = await user.update({ imagePath: req.file.path });
       res.status(200).json({ message: "Image Uploaded Successfully" });
     } else {
       res.status(500).json({
