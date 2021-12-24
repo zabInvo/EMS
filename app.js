@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const multer = require("multer");
+require("dotenv").config();
 
 const port = 3000;
 app.use(bodyParser.json());
