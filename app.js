@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const multer = require("multer");
 require("dotenv").config();
 
+
 const port = 3000;
 app.use(bodyParser.json());
 
@@ -33,6 +34,9 @@ module.exports.upload = multer({
 
 app.use('/uploads', express.static('uploads'));
 
+// ROUTE FOR  BULLBOARD UI FOR QUEUES
+app.use('/admin/queues', require('bull-board').router);
+
 app.get("/", (req, res) => {
   res.send("You land on a wrong planet, no one lives here.");
 });
@@ -47,6 +51,8 @@ app.use("/api/employee", require("./routes/employee"));
 app.use("/api/salary", require("./routes/salary"));
 // ROUTE FOR ATTENDANCE
 app.use("/api/attendance", require("./routes/attendance"));
+// ROUTE FOR REDIS EMAIL QUEUE
+app.use("/api/sendEmail", require("./queues/index"));
 
 app.listen(port, () => {
   console.log(`App is listening at http://localhost:${port}`);
