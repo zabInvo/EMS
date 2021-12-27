@@ -1,6 +1,8 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
+const fs = require('fs');
+
 
 const AdminModel = require("../models").Admin;
 
@@ -136,3 +138,43 @@ module.exports.updatePassword = async (req, res) => {
     });
   }
 };
+
+// UPLOAD IMAGE TO DATABASE
+module.exports.uploadImage = async (req, res) => {
+  try {
+    const user = await AdminModel.findOne({
+      where: {
+        id: req.user,
+      },
+    });
+    if (user) {
+      console.log(req.files.adminImage);
+      const saveFile = await user.update({imageData : req.files.adminImage.data})
+      res.status(200).json({ message: "Image added Sucessfully" });
+    } else {
+      res.status(403).json({ message: "User not found" });
+    }
+  } catch (error) {
+    res.status(500).json({
+      error:
+        error.name === "SequelizeValidationError"
+          ? error.errors[0].message
+          : "Internal Server Error",
+    });
+  }
+};
+
+module.exports.fetchImage = async (req, res) => {
+  const user = await AdminModel.findOne({
+    where: {
+      id: req.params.id,
+    },
+  });
+  if (user) {
+      const image = user.imageData;
+      // let file = await fs.createWriteStream('./uploads/image.jpg').write(image); // Optional If you want to save file in uploads folder.
+      res.end(image);
+  } else {
+      res.end('No Img with that Id!');
+  }
+}

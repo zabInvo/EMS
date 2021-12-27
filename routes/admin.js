@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const adminController = require("../controllers/AdminController");
 const middleware = require("../middleware/authentication");
+const upload = require('../app').upload;
+
 
 // ALL CRUD ROUTES FOR ADMIN
 router.post("/create", adminController.createAdmin);
@@ -12,6 +14,10 @@ router.post(
   middleware.checkAuth,
   adminController.updatePassword
 );
+// ROUTE FOR SAVE IMAGE IN DATABASE
+router.post("/uploadImage", middleware.checkAuth,adminController.uploadImage);
+router.get("/fetchImage/:id",adminController.fetchImage);
+
 
 module.exports = router;
 

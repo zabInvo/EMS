@@ -26,6 +26,9 @@ module.exports = (sequelize, DataTypes) => {
           isEmail: true,
         }
       },
+      imageData: {
+        type : DataTypes.BLOB
+      }
     },
     {
       sequelize,

@@ -6,9 +6,12 @@ require("dotenv").config();
 const swaggerJSDoc = require("swagger-jsdoc");
 const swaggerUI = require("swagger-ui-express");
 const swaggerOptions = require("./swagger").swaggerOptions;
+const fileUpload = require('express-fileupload');
 
 const port = 3000;
 app.use(bodyParser.json());
+
+app.use(fileUpload());
 
 // CONFIG FOR FILE UPLOADING
 const storage = multer.diskStorage({
