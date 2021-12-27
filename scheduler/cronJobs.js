@@ -7,7 +7,7 @@ cron.schedule("* * * * *", () => {
   sendEmail();
 });
 
-const sendEmail = async () => {
+module.exports.sendEmail = async () => {
   // Only needed if you don't have a real mail account for testing
   let testAccount = await nodemailer.createTestAccount();
 
@@ -23,10 +23,12 @@ const sendEmail = async () => {
   // send mail with defined transport object
   const info = await transporter.sendMail({
     from: '"EMS 👻" <invozone.nodemailer@gmail.com>', // sender address
-    to: "zain.ali@invozone.com, taliha.arif@invozone.com", // list of receivers
+    to: "zain.ali@invozone.com", // list of receivers
     subject: "Welcome ✔", // Subject line
     text: "Hello!", // plain text body
-    html: { path: "mail.html" },
+    html: "<b>Hello World</b>"
+    // html: { path: "./mail.html" },
   });
   console.log("Message sent: %s", info.messageId);
+  return info.messageId;
 };

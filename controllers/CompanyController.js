@@ -18,7 +18,7 @@ module.exports.createCompany = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       error:
-        error && error.errors[0] && error.errors[0].message
+        error.name === "SequelizeValidationError"
           ? error.errors[0].message
           : "Internal Server Error",
     });
@@ -43,7 +43,7 @@ module.exports.getCompanies = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       error:
-        error && error.errors[0] && error.errors[0].message
+        error.name === "SequelizeValidationError"
           ? error.errors[0].message
           : "Internal Server Error",
     });
@@ -82,7 +82,7 @@ module.exports.updateCompany = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       error:
-        error && error.errors[0] && error.errors[0].message
+        error.name === "SequelizeValidationError"
           ? error.errors[0].message
           : "Internal Server Error",
     });
@@ -113,7 +113,7 @@ module.exports.deleteCompany = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       error:
-        error && error.errors[0] && error.errors[0].message
+        error.name === "SequelizeValidationError"
           ? error.errors[0].message
           : "Internal Server Error",
     });

@@ -3,7 +3,9 @@ const app = express();
 const bodyParser = require("body-parser");
 const multer = require("multer");
 require("dotenv").config();
-
+const swaggerJSDoc = require("swagger-jsdoc");
+const swaggerUI = require("swagger-ui-express");
+const swaggerOptions = require("./swagger").swaggerOptions;
 
 const port = 3000;
 app.use(bodyParser.json());
@@ -29,13 +31,18 @@ module.exports.upload = multer({
   limits: {
     fileSize: 1024 * 1024 * 5,
   },
-  fileFilter : checkFileType
+  fileFilter: checkFileType,
 });
 
-app.use('/uploads', express.static('uploads'));
+app.use("/uploads", express.static("uploads"));
 
 // ROUTE FOR  BULLBOARD UI FOR QUEUES
-app.use('/admin/queues', require('bull-board').router);
+app.use("/admin/queues", require("bull-board").router);
+
+// ROUTE FOR  SWAGGER API DOCS 
+const swaggerDocs = swaggerJSDoc(swaggerOptions);
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocs));
+
 
 app.get("/", (req, res) => {
   res.send("You land on a wrong planet, no one lives here.");

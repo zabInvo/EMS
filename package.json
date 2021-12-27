@@ -30,7 +30,9 @@
     "pg": "^8.7.1",
     "pg-hstore": "^2.3.4",
     "scope": "^0.10.1",
-    "sequelize": "^6.12.1"
+    "sequelize": "^6.12.1",
+    "swagger-jsdoc": "^6.1.0",
+    "swagger-ui-express": "^4.3.0"
   },
   "devDependencies": {
     "sequelize-cli": "^6.3.0"

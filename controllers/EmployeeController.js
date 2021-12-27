@@ -71,7 +71,7 @@ module.exports.login = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       error:
-        error && error.errors[0] && error.errors[0].message
+        error.name === "SequelizeValidationError"
           ? error.errors[0].message
           : "Internal Server Error",
     });
@@ -138,7 +138,7 @@ module.exports.deleteEmployee = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       error:
-        error && error.errors[0] && error.errors[0].message
+        error.name === "SequelizeValidationError"
           ? error.errors[0].message
           : "Internal Server Error",
     });
@@ -171,7 +171,7 @@ module.exports.assignComapny = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       error:
-        error && error.errors[0] && error.errors[0].message
+        error.name === "SequelizeValidationError"
           ? error.errors[0].message
           : "Internal Server Error",
     });
