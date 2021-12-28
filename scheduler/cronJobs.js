@@ -4,10 +4,10 @@ require("dotenv").config();
 
 cron.schedule("* * * * *", () => {
   console.log("Send Mail Running Every Minute ");
-  sendEmail();
+  // mail();
 });
 
-module.exports.sendEmail = async () => {
+const sendEmail = async () => {
   // Only needed if you don't have a real mail account for testing
   let testAccount = await nodemailer.createTestAccount();
 
@@ -32,3 +32,6 @@ module.exports.sendEmail = async () => {
   console.log("Message sent: %s", info.messageId);
   return info.messageId;
 };
+
+
+module.exports.sendEmail = sendEmail;

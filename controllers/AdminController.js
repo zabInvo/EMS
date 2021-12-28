@@ -164,6 +164,8 @@ module.exports.uploadImage = async (req, res) => {
   }
 };
 
+
+// FETCH IMAGE TO DATABASE
 module.exports.fetchImage = async (req, res) => {
   const user = await AdminModel.findOne({
     where: {
