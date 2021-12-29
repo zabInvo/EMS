@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const multer = require("multer");
-require("dotenv").config();
 const swaggerJSDoc = require("swagger-jsdoc");
 const swaggerUI = require("swagger-ui-express");
 const swaggerOptions = require("./swagger").swaggerOptions;

@@ -2,7 +2,7 @@ const CompanyModel = require("../models").Company;
 const AdminModel = require("../models").Admin;
 
 // CREATE NEW COMPANY ROUTE
-module.exports.createCompany = async (req, res) => {
+const createCompany = async (req, res) => {
   try {
     const admin = await AdminModel.findByPk(req.user);
     if (admin) {
@@ -26,7 +26,7 @@ module.exports.createCompany = async (req, res) => {
 };
 
 // GET ADMIN COMPANIES ROUTE
-module.exports.getCompanies = async (req, res) => {
+const getCompanies = async (req, res) => {
   try {
     const admin = await AdminModel.findByPk(req.user);
     if (admin) {
@@ -51,7 +51,7 @@ module.exports.getCompanies = async (req, res) => {
 };
 
 // UPDATE COMPANY ROUTE
-module.exports.updateCompany = async (req, res) => {
+const updateCompany = async (req, res) => {
   try {
     const admin = await AdminModel.findByPk(req.user);
     if (admin) {
@@ -90,7 +90,7 @@ module.exports.updateCompany = async (req, res) => {
 };
 
 // UPDATE COMPANY ROUTE
-module.exports.deleteCompany = async (req, res) => {
+const deleteCompany = async (req, res) => {
   try {
     const admin = await AdminModel.findByPk(req.user);
     if (admin) {
@@ -119,3 +119,10 @@ module.exports.deleteCompany = async (req, res) => {
     });
   }
 };
+
+module.exports = {
+  createCompany,
+  getCompanies,
+  updateCompany,
+  deleteCompany
+}

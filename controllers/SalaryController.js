@@ -4,7 +4,7 @@ const SalaryModel = require("../models").Salary;
 const CompanyModal = require("../models").Company;
 
 // ROUTE FOR CREATE SALARY
-module.exports.createSalary = async (req, res) => {
+const createSalary = async (req, res) => {
   try {
     const admin = await AdminModel.findByPk(req.user);
     const user = await EmployeeModel.findByPk(req.body.userId);
@@ -40,35 +40,7 @@ module.exports.createSalary = async (req, res) => {
 };
 
 // ROUTE FOR UPDATE SALARY
-module.exports.updateSalary = async (req, res) => {
-  try {
-    const admin = await AdminModel.findByPk(req.user);
-    const user = await EmployeeModel.findByPk(req.body.userId);
-    if (admin && user) {
-      const payload = {
-        amount: req.body.salary,
-      };
-      const updateSalary = await SalaryModel.update(payload, {
-        where: {
-          EmployeeId: req.body.userId,
-        },
-      });
-      res.status(200).json({ message: "Salary Updated Successfully" });
-    } else {
-      res.status(403).json({ message: "Invalid data!" });
-    }
-  } catch (error) {
-    res.status(500).json({
-      error:
-        error.name === "SequelizeValidationError"
-          ? error.errors[0].message
-          : "Internal Server Error",
-    });
-  }
-};
-
-// ROUTE FOR UPDATE SALARY
-module.exports.updateSalary = async (req, res) => {
+const updateSalary = async (req, res) => {
   try {
     const admin = await AdminModel.findByPk(req.user);
     const user = await EmployeeModel.findByPk(req.body.userId);
@@ -96,7 +68,7 @@ module.exports.updateSalary = async (req, res) => {
 };
 
 // ROUTE FOR GET USER SALARY
-module.exports.getUserSalary = async (req, res) => {
+const getUserSalary = async (req, res) => {
   try {
     const userSalary = await SalaryModel.findOne({
       where: {
@@ -115,28 +87,8 @@ module.exports.getUserSalary = async (req, res) => {
   }
 };
 
-// ROUTE FOR GET USER SALARY
-module.exports.getUserSalary = async (req, res) => {
-  try {
-    const userSalary = await SalaryModel.findOne({
-      where: {
-        EmployeeId: req.user,
-      },
-      attributes: ["amount"],
-    });
-    res.status(200).json({ data: userSalary });
-  } catch (error) {
-    res.status(500).json({
-      error:
-        error.name === "SequelizeValidationError"
-          ? error.errors[0].message
-          : "Internal Server Error",
-    });
-  }
-};
-
-// ROUTE FOR GET USER SALARY
-module.exports.getAllSalary = async (req, res) => {
+// ROUTE FOR GET ALL USERS SALARY
+const getAllSalary = async (req, res) => {
   try {
     const admin = await AdminModel.findByPk(req.user);
     if (admin) {
@@ -169,4 +121,11 @@ module.exports.getAllSalary = async (req, res) => {
       error: error,
     });
   }
+};
+
+module.exports = {
+  createSalary,
+  updateSalary,
+  getUserSalary,
+  getAllSalary,
 };

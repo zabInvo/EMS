@@ -4,7 +4,7 @@ const AttendanceModel = require("../models").Attendance;
 const CompanyModal = require("../models").Company;
 
 // ROUTE FOR CREATE ATTENDANCE
-module.exports.createAttendance = async (req, res) => {
+const createAttendance = async (req, res) => {
   try {
     const admin = await AdminModel.findByPk(req.user);
     const user = await EmployeeModel.findByPk(req.body.userId);
@@ -39,7 +39,7 @@ module.exports.createAttendance = async (req, res) => {
 };
 
 // ROUTE FOR GET USER ATTENDANCE
-module.exports.getUserAttendance = async (req, res) => {
+const getUserAttendance = async (req, res) => {
   try {
     const attendance = await AttendanceModel.findAll({
       where: {
@@ -56,7 +56,7 @@ module.exports.getUserAttendance = async (req, res) => {
 };
 
 // ROUTE FOR GET ALL ATTENDANCE
-module.exports.getAllAttendance = async (req, res) => {
+const getAllAttendance = async (req, res) => {
   try {
     const admin = await AdminModel.findByPk(req.user);
     if (admin) {
@@ -90,3 +90,9 @@ module.exports.getAllAttendance = async (req, res) => {
     });
   }
 };
+
+module.exports = {
+  createAttendance,
+  getUserAttendance,
+  getAllAttendance
+}

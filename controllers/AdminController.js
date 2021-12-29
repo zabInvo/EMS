@@ -1,13 +1,12 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const fs = require("fs");
 require("dotenv").config();
-const fs = require('fs');
-
 
 const AdminModel = require("../models").Admin;
 
 // CREATE NEW ADMIN ROUTE
-module.exports.createAdmin = async (req, res) => {
+const createAdmin = async (req, res) => {
   const saltRounds = 10;
   const salt = await bcrypt.genSaltSync(saltRounds);
   const hash = await bcrypt.hashSync(req.body.password, salt);
@@ -30,7 +29,7 @@ module.exports.createAdmin = async (req, res) => {
 };
 
 // LOGIN ADMIN ROUTE
-module.exports.login = async (req, res) => {
+const login = async (req, res) => {
   try {
     const user = await AdminModel.findAll({
       where: {
@@ -72,7 +71,7 @@ module.exports.login = async (req, res) => {
 };
 
 // GET ALL ADMINS
-module.exports.getAll = async (req, res) => {
+const getAll = async (req, res) => {
   try {
     const checkAdmin = await AdminModel.findOne({
       where: {
@@ -96,7 +95,7 @@ module.exports.getAll = async (req, res) => {
 };
 
 // CHANGE/UPDATE ADMIN PASSWORD
-module.exports.updatePassword = async (req, res) => {
+const updatePassword = async (req, res) => {
   try {
     const user = await AdminModel.findAll({
       where: {
@@ -140,7 +139,7 @@ module.exports.updatePassword = async (req, res) => {
 };
 
 // UPLOAD IMAGE TO DATABASE
-module.exports.uploadImage = async (req, res) => {
+const uploadImage = async (req, res) => {
   try {
     const user = await AdminModel.findOne({
       where: {
@@ -149,7 +148,9 @@ module.exports.uploadImage = async (req, res) => {
     });
     if (user) {
       console.log(req.files.adminImage);
-      const saveFile = await user.update({imageData : req.files.adminImage.data})
+      const saveFile = await user.update({
+        imageData: req.files.adminImage.data,
+      });
       res.status(200).json({ message: "Image added Sucessfully" });
     } else {
       res.status(403).json({ message: "User not found" });
@@ -164,19 +165,27 @@ module.exports.uploadImage = async (req, res) => {
   }
 };
 
-
 // FETCH IMAGE TO DATABASE
-module.exports.fetchImage = async (req, res) => {
+const fetchImage = async (req, res) => {
   const user = await AdminModel.findOne({
     where: {
       id: req.params.id,
     },
   });
   if (user) {
-      const image = user.imageData;
-      // let file = await fs.createWriteStream('./uploads/image.jpg').write(image); // Optional If you want to save file in uploads folder.
-      res.end(image);
+    const image = user.imageData;
+    // let file = await fs.createWriteStream('./uploads/image.jpg').write(image); // Optional If you want to save file in uploads folder.
+    res.end(image);
   } else {
-      res.end('No Img with that Id!');
+    res.end("No Img with that Id!");
   }
-}
+};
+
+module.exports = {
+  createAdmin,
+  login,
+  getAll,
+  updatePassword,
+  uploadImage,
+  fetchImage,
+};

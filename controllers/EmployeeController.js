@@ -1,11 +1,12 @@
-const EmployeeModel = require("../models").Employees;
-const AdminModel = require("../models").Admin;
-const CompanyModel = require("../models").Company;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+const EmployeeModel = require("../models").Employees;
+const AdminModel = require("../models").Admin;
+const CompanyModel = require("../models").Company;
+
 // CREATE NEW EMPLOYEE ROUTE
-module.exports.createEmployee = async (req, res) => {
+const createEmployee = async (req, res) => {
   try {
     const admin = await AdminModel.findByPk(req.user);
     const company = await CompanyModel.findByPk(req.body.companyId);
@@ -34,7 +35,7 @@ module.exports.createEmployee = async (req, res) => {
 };
 
 // EMPLOYEE LOGIN ROUTE
-module.exports.login = async (req, res) => {
+const login = async (req, res) => {
   try {
     const user = await EmployeeModel.findOne({
       where: {
@@ -79,7 +80,7 @@ module.exports.login = async (req, res) => {
 };
 
 // UPDATE EMPLOYEE PASSWORD ROUTE
-module.exports.updatePassword = async (req, res) => {
+const updatePassword = async (req, res) => {
   try {
     const user = await EmployeeModel.findOne({
       where: {
@@ -113,7 +114,7 @@ module.exports.updatePassword = async (req, res) => {
 };
 
 // DELETE EMPLOYEE ROUTE
-module.exports.deleteEmployee = async (req, res) => {
+const deleteEmployee = async (req, res) => {
   try {
     const checkAdmin = await AdminModel.findOne({
       where: {
@@ -146,7 +147,7 @@ module.exports.deleteEmployee = async (req, res) => {
 };
 
 // DELETE EMPLOYEE ROUTE
-module.exports.assignComapny = async (req, res) => {
+const assignComapny = async (req, res) => {
   try {
     // CHECK isAdmin
     const checkAdmin = await AdminModel.findOne({
@@ -179,7 +180,7 @@ module.exports.assignComapny = async (req, res) => {
 };
 
 // DELETE EMPLOYEE ROUTE
-module.exports.uploadImage = async (req, res) => {
+const uploadImage = async (req, res) => {
   try {
     const user = await EmployeeModel.findByPk(req.user);
     if (req.file) {
@@ -197,3 +198,12 @@ module.exports.uploadImage = async (req, res) => {
     });
   }
 };
+
+module.exports = {
+  createEmployee,
+  login,
+  updatePassword,
+  deleteEmployee,
+  assignComapny,
+  uploadImage
+}

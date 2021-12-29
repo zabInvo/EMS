@@ -1,8 +1,11 @@
 const Queue = require("bull");
 const setQueues = require('bull-board').setQueues;
 const BullAdapter = require('bull-board').BullAdapter;
+
 const mail = require('../scheduler/cronJobs');
 
+
+// Create Queue And Connect With Redis
 const emailQueue = new Queue("email", "redis://127.0.0.1:6379");
 
 // Consumer
@@ -11,6 +14,7 @@ emailQueue.process(function (job){
     return mail.sendEmail();
 });
 
+// For Bullboard UI
 setQueues([
     new BullAdapter(emailQueue)
 ]);

@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
+
 const adminController = require("../controllers/AdminController");
 const middleware = require("../middleware/authentication");
-const upload = require('../app').upload;
 
 
 // ALL CRUD ROUTES FOR ADMIN
