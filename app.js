@@ -1,16 +1,22 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+const cors = require('cors');
 const multer = require("multer");
 const swaggerJSDoc = require("swagger-jsdoc");
 const swaggerUI = require("swagger-ui-express");
 const swaggerOptions = require("./swagger").swaggerOptions;
 const fileUpload = require('express-fileupload');
 
+
 const port = 3000;
 app.use(bodyParser.json());
 
 app.use(fileUpload());
+
+app.use(cors({
+  origin: '*'
+}));
 
 // CONFIG FOR FILE UPLOADING
 const storage = multer.diskStorage({
