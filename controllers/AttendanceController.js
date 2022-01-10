@@ -47,7 +47,7 @@ const getUserAttendance = async (req, res) => {
       },
       attributes: ["date", "status"],
     });
-    res.status(200).json({ date: attendance });
+    res.status(200).json({ data: attendance });
   } catch (error) {
     res.status(500).json({
       error: error,
@@ -82,7 +82,7 @@ const getAllAttendance = async (req, res) => {
     } else {
       res
         .status(403)
-        .json({ date: "You are not authorized to perform this action" });
+        .json({ data: "You are not authorized to perform this action" });
     }
   } catch (error) {
     res.status(500).json({

@@ -1,5 +1,7 @@
 const CompanyModel = require("../models").Company;
 const AdminModel = require("../models").Admin;
+const EmployeeModel = require("../models").Employees;
+const EmployeeCompanyModel = require("../models").EmployeeCompany;
 
 // CREATE NEW COMPANY ROUTE
 const createCompany = async (req, res) => {
@@ -38,9 +40,26 @@ const getCompanies = async (req, res) => {
       });
       res.status(200).json({ data: companies });
     } else {
-      res.status(403).json({ message: "You are authorized" });
+      const employee = await EmployeeModel.findByPk(req.user);
+      if (employee) {
+        const employeeCompanies = await EmployeeCompanyModel.findAll({
+          where: {
+            EmployeeId: req.user,
+          },
+          attributes: ["CompanyId"],
+        });
+        let allCompanies = [];
+        for await (item of employeeCompanies) {
+          const company = await CompanyModel.findByPk(item.CompanyId, {
+            attributes: ["name", "address", "type"],
+          });
+          allCompanies.push(company.toJSON());
+        }
+        res.status(200).json({ data: allCompanies });
+      }
     }
   } catch (error) {
+    console.log(error);
     res.status(500).json({
       error:
         error.name === "SequelizeValidationError"
@@ -124,5 +143,5 @@ module.exports = {
   createCompany,
   getCompanies,
   updateCompany,
-  deleteCompany
-}
+  deleteCompany,
+};
