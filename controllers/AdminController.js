@@ -4,6 +4,8 @@ const fs = require("fs");
 require("dotenv").config();
 
 const AdminModel = require("../models").Admin;
+const CompanyModel = require("../models").Company;
+const EmployeeCompanyModel = require("../models").EmployeeCompany;
 
 // CREATE NEW ADMIN ROUTE
 const createAdmin = async (req, res) => {
@@ -181,6 +183,41 @@ const fetchImage = async (req, res) => {
   }
 };
 
+// GET ALL ADMIN DASHBOARD STATS
+const getDashboardStats = async (req, res) => {
+  try {
+    const checkAdmin = await AdminModel.findOne({
+      where: {
+        id: req.user,
+      },
+    });
+    if (checkAdmin) {
+      const admin = await AdminModel.count();
+      const company = await CompanyModel.count({
+        where: { AdminId: req.user },
+      });
+      const employees = await EmployeeCompanyModel.count({
+        where: { CompanyId: req.body.companyId },
+      });
+      const response = {
+        admin,
+        company,
+        employees,
+      };
+      res.status(200).json({ data: response });
+    } else {
+      res.status(403).json({ message: "You are authorized for this action" });
+    }
+  } catch (error) {
+    res.status(500).json({
+      error:
+        error.name === "SequelizeValidationError"
+          ? error.errors[0].message
+          : "Internal Server Error",
+    });
+  }
+};
+
 module.exports = {
   createAdmin,
   login,
@@ -188,4 +225,5 @@ module.exports = {
   updatePassword,
   uploadImage,
   fetchImage,
+  getDashboardStats,
 };

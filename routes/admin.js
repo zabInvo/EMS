@@ -16,7 +16,9 @@ router.post(
 );
 // ROUTE FOR SAVE IMAGE IN DATABASE
 router.post("/uploadImage", middleware.checkAuth,adminController.uploadImage);
+router.post("/getDashboardStats", middleware.checkAuth,adminController.getDashboardStats);
 router.get("/fetchImage/:id",adminController.fetchImage);
+
 
 
 module.exports = router;
