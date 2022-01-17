@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const fs = require("fs");
 require("dotenv").config();
+const { validationResult } = require("express-validator");
 
 const AdminModel = require("../models").Admin;
 const CompanyModel = require("../models").Company;
@@ -9,15 +10,19 @@ const EmployeeCompanyModel = require("../models").EmployeeCompany;
 
 // CREATE NEW ADMIN ROUTE
 const createAdmin = async (req, res) => {
-  const saltRounds = 10;
-  const salt = await bcrypt.genSaltSync(saltRounds);
-  const hash = await bcrypt.hashSync(req.body.password, salt);
-  const payload = {
-    name: req.body.name,
-    email: req.body.email,
-    password: hash,
-  };
   try {
+    const error = validationResult(req);
+    if (!error.isEmpty()) {
+      return res.status(400).json({ errors: error.array() });
+    }
+    const saltRounds = 10;
+    const salt = await bcrypt.genSaltSync(saltRounds);
+    const hash = await bcrypt.hashSync(req.body.password, salt);
+    const payload = {
+      name: req.body.name,
+      email: req.body.email,
+      password: hash,
+    };
     const admin = await AdminModel.create(payload);
     res.status(200).json({ message: "Admin Created Successfully" });
   } catch (error) {
@@ -33,6 +38,10 @@ const createAdmin = async (req, res) => {
 // LOGIN ADMIN ROUTE
 const login = async (req, res) => {
   try {
+    const error = validationResult(req);
+    if (!error.isEmpty()) {
+      return res.status(400).json({ errors: error.array() });
+    }
     const user = await AdminModel.findAll({
       where: {
         email: req.body.email,
@@ -99,6 +108,10 @@ const getAll = async (req, res) => {
 // CHANGE/UPDATE ADMIN PASSWORD
 const updatePassword = async (req, res) => {
   try {
+    const error = validationResult(req);
+    if (!error.isEmpty()) {
+      return res.status(400).json({ errors: error.array() });
+    }
     const user = await AdminModel.findAll({
       where: {
         id: req.user,

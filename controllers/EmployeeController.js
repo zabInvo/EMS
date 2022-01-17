@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { validationResult } = require("express-validator");
 
 const EmployeeModel = require("../models").Employees;
 const AdminModel = require("../models").Admin;
@@ -8,6 +9,10 @@ const CompanyModel = require("../models").Company;
 // CREATE NEW EMPLOYEE ROUTE
 const createEmployee = async (req, res) => {
   try {
+    const error = validationResult(req);
+    if (!error.isEmpty()) {
+      return res.status(400).json({ errors: error.array() });
+    }
     const admin = await AdminModel.findByPk(req.user);
     const company = await CompanyModel.findByPk(req.body.companyId);
     if (admin) {
@@ -205,5 +210,5 @@ module.exports = {
   updatePassword,
   deleteEmployee,
   assignComapny,
-  uploadImage
-}
+  uploadImage,
+};

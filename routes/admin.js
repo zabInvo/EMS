@@ -4,22 +4,44 @@ const router = express.Router();
 const adminController = require("../controllers/AdminController");
 const middleware = require("../middleware/authentication");
 
+const { body } = require("express-validator");
 
 // ALL CRUD ROUTES FOR ADMIN
-router.post("/create", adminController.createAdmin);
-router.post("/login", adminController.login);
+router.post(
+  "/create",
+  body("name", "Name is required!").exists(),
+  body("email", "Email must be valid").exists().isEmail(),
+  body("password", "Invalid Password! Password must be 6 characters long")
+    .exists()
+    .isLength({ min: 6 }),
+  adminController.createAdmin
+);
+router.post(
+  "/login",
+  body("email", "Email must be valid").exists().isEmail(),
+  body("password", "Invalid Password").exists(),
+  adminController.login
+);
 router.post("/getAdmins", middleware.checkAuth, adminController.getAll);
 router.post(
   "/updatePassword",
   middleware.checkAuth,
+  body("oldPassword", "Invalid Password! Password must be 6 characters long")
+    .exists()
+    .isLength({ min: 6 }),
+  body("newPassword", "Invalid Password! Password must be 6 characters long")
+    .exists()
+    .isLength({ min: 6 }),
   adminController.updatePassword
 );
 // ROUTE FOR SAVE IMAGE IN DATABASE
-router.post("/uploadImage", middleware.checkAuth,adminController.uploadImage);
-router.post("/getDashboardStats", middleware.checkAuth,adminController.getDashboardStats);
-router.get("/fetchImage/:id",adminController.fetchImage);
-
-
+router.post("/uploadImage", middleware.checkAuth, adminController.uploadImage);
+router.post(
+  "/getDashboardStats",
+  middleware.checkAuth,
+  adminController.getDashboardStats
+);
+router.get("/fetchImage/:id", adminController.fetchImage);
 
 module.exports = router;
 

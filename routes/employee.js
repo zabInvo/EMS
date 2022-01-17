@@ -1,23 +1,47 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
+const { body } = require("express-validator");
 
-const middleware = require('../middleware/authentication');
-const employeeController = require('../controllers/EmployeeController');
-const upload = require('../app').upload;
+const middleware = require("../middleware/authentication");
+const employeeController = require("../controllers/EmployeeController");
+const upload = require("../app").upload;
 
 // All CRUD ROUTES FOR EMPLOYEES
-router.post('/login', employeeController.login);
-router.post('/create', middleware.checkAuth, employeeController.createEmployee);
-router.post('/updatePassword', middleware.checkAuth, employeeController.updatePassword);
-router.post('/deleteEmployee', middleware.checkAuth, employeeController.deleteEmployee);
-router.post('/assignComapny', middleware.checkAuth, employeeController.assignComapny);
-router.post('/uploadImage' , middleware.checkAuth, upload.single('userImage'), employeeController.uploadImage);
-
-
+router.post("/login", employeeController.login);
+router.post(
+  "/create",
+  middleware.checkAuth,
+  body("name", "Name is required!").exists(),
+  body("companyId", "Company ID is required!").exists(),
+  body("email", "Email must be valid").exists().isEmail(),
+  body("password", "Invalid Password! Password must be 6 characters long")
+    .exists()
+    .isLength({ min: 6 }),
+  employeeController.createEmployee
+);
+router.post(
+  "/updatePassword",
+  middleware.checkAuth,
+  employeeController.updatePassword
+);
+router.post(
+  "/deleteEmployee",
+  middleware.checkAuth,
+  employeeController.deleteEmployee
+);
+router.post(
+  "/assignComapny",
+  middleware.checkAuth,
+  employeeController.assignComapny
+);
+router.post(
+  "/uploadImage",
+  middleware.checkAuth,
+  upload.single("userImage"),
+  employeeController.uploadImage
+);
 
 module.exports = router;
-
-
 
 /**
  * @swagger
@@ -133,7 +157,6 @@ module.exports = router;
  *         description: Internal Server Error
  *
  */
-
 
 /**
  * @swagger
