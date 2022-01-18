@@ -1,0 +1,14 @@
+"id","name","email","password","createdAt","updatedAt","imagePath"
+32,"zafar","zafar@gmail.com","$2b$10$.tr.7BGv7eZlzza3/DGAC.ystg9C.D4CDA/r2qu4GHBhjZJK5HR1m","2021-12-23 11:20:09.417+05","2021-12-23 11:20:09.417+05",
+48,"New User","new@gmail.com","$2b$10$sH2Qdu.EXteIxLhnop043.qjo2dJyfyst3yOgDAnLne55B2BKVvYa","2022-01-17 15:21:24.847+05","2022-01-17 15:21:24.847+05",
+50,"za","zain@gmail.com","$2b$10$0SbMQqzvNSOeaL1F3uBm5.XPM.dmzzez.kE5K8qwMDzUWxWRxah/q","2022-01-17 16:49:02.725+05","2022-01-17 16:49:02.725+05",
+34,"hamza","hamza@gmail.com","$2b$10$UtZbUBLFSMD3k4bz1749j.JWVLc4jndQbSwaRhVmR9zcHOXq4SZCS","2022-01-07 10:37:59.609+05","2022-01-07 10:37:59.609+05",
+35,"ahmed","ahmed@gmail.com","$2b$10$U9YYbDe/Md7jMwTYu1JQhehlKE.GZlvlCveqIo1sEWiPp90w45Fke","2022-01-07 10:38:33.719+05","2022-01-07 10:38:33.719+05",
+36,"zeeshan","zeeshan@gmail.com","$2b$10$908PPNMSUrqkspp40MxXeeEHzAx244IT14X7aA.lCXYo498f/Tj4i","2022-01-07 10:39:17.511+05","2022-01-07 10:39:17.511+05",
+37,"usman","usman@gmail.com","$2b$10$FamyKzqUrg/hfzA27.vzk.G..dtbeCEiAZP5tsmfudoRqY7DWx2nC","2022-01-09 05:11:29.685+05","2022-01-09 05:11:29.685+05",
+41,"Asad","asad@gmail.com","$2b$10$NXsKkC2bLS5JvPc1CsUkbuQGfisAFs/qDBrv3.ullS/S2EOuKTHaC","2022-01-10 02:41:35.213+05","2022-01-10 02:41:35.213+05",
+42,"Maryam","maryam@gmail.com","$2b$10$nhN4WjUpNu2RYO1SX138OuupvweBZ.Bo5a37pZXZnTwGOggtNSdre","2022-01-10 14:50:22.865+05","2022-01-10 14:50:22.865+05",
+27,"Ali","ali@gmail.com","$2b$10$iXbmeSQEwUlsNMcp7suh/emL6rdEhuUlFrTmw8aIGAJ6sO3CVXaAu","2021-12-22 19:21:34.519+05","2022-01-10 15:08:35.957+05","uploads/2021-12-24T09:49:30.258Zprofile.jpeg"
+44,"abubakar","test@gmail.com","$2b$10$RM4VHkrknGwb3MI74qrCW.PlJ8YrSSeIjkCfpPKbyjBAe6cO4pul.","2022-01-10 22:31:42.904+05","2022-01-10 22:31:42.904+05",
+45,"Test TypeScript","typescript@gmail.com","$2b$10$ieeNbJhBvG/zMpkQHSC0fOkBuDeL591ZmUCUxjIkWHhszYokibvLm","2022-01-14 15:24:23.723+05","2022-01-14 15:24:23.723+05",
+46,"Testing","testing@gmail.com","$2b$10$OZkAaZOLnCpcrAx9X0U2PeAfs.Os/nUAQkVufE0woQlZtj8kHvgFC","2022-01-17 15:02:00.451+05","2022-01-17 15:02:00.451+05",

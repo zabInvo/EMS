@@ -1,0 +1,5 @@
+"id","name","password","email","createdAt","updatedAt","imageData"
+2,"Zeeshan","$2b$10$IQpiFtn/uyq1YIXiXaa.jO0yzmQnvE.m1VFRn3MKvAYid801l6.9u","zeeshan@gmail.com","2021-12-22 14:38:19.527+05","2021-12-22 14:38:19.527+05",
+5,"Ali","$2b$10$JlmWtpk2eMapGSiBZu5W1Os/hqAgzX..uFojTchspRg9uHGu.BCEa","ali@gmail.com","2021-12-26 06:28:34.278+05","2021-12-26 06:28:34.278+05",
+3,"Hassan","$2b$10$ts75Wez3EkISPdJDtfsgAumUWpsbAPzVrE2Nzop1PE9tE59POS15y","hassan@gmail.com","2021-12-23 19:19:24.999+05","2021-12-27 15:08:28.706+05",
+1,"Syed Zain Ali","$2b$10$/KB4mqutjc769316BrNUde7rq4OuNMTyqjdvytdZSRLwgWCasbfP.","zain@gmail.com","2021-12-22 12:09:21.893+05","2022-01-17 18:17:10.462+05",
